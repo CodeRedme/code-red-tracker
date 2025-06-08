@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Red - Period Tracker</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffe6ec;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+    }
+    header {
+      background-color: #ff9aa2;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+    .container {
+      max-width: 600px;
+      background: white;
+      margin: 30px;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    button {
+      background-color: #ff9aa2;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    footer {
+      margin-top: auto;
+      padding: 10px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <header>🩸 Code Red - Track Your Period</header>
+  <div class="container">
+    <p>Hello beautiful! Use this simple tracker to log your period start date and take small notes about your day. 💕</p>
+
+    <label for="date">Period Start Date:</label>
+    <input type="date" id="date">
+
+    <label for="notes">Notes (mood, flow, cramps...):</label>
+    <textarea id="notes" rows="4" placeholder="Feeling tired, light cramps...?"></textarea>
+
+    <button onclick="saveEntry()">Save Entry</button>
+    <button onclick="viewLast()">View Last Entry</button>
+
+    <p id="lastEntry" style="margin-top:20px; font-style: italic;"></p>
+  </div>
+
+  <footer>Made with 💗 by a 15 y/o girlboss for all her sisters 🌸</footer>
+
+  <script>
+    function saveEntry() {
+      const date = document.getElementById('date').value;
+      const notes = document.getElementById('notes').value;
+      if (!date) {
+        alert('Please enter a period start date.');
+        return;
+      }
+      const entry = { date, notes };
+      localStorage.setItem('codeRedLastEntry', JSON.stringify(entry));
+      alert('Entry saved! 💾');
+    }
+
+    function viewLast() {
+      const last = localStorage.getItem('codeRedLastEntry');
+      if (!last) {
+        document.getElementById('lastEntry').textContent = 'No previous data found.';
+        return;
+      }
+      const entry = JSON.parse(last);
+      document.getElementById('lastEntry').textContent =
+        `Last saved entry: ${entry.date} - Notes: ${entry.notes}`;
+    }
+  </script>
+</body>
+</html>
